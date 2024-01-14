@@ -1,0 +1,546 @@
+-- MySQL dump 10.13  Distrib 8.0.32, for Win64 (x86_64)
+--
+-- Host: localhost    Database: pk03092_assignment3
+-- ------------------------------------------------------
+-- Server version	8.0.32
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!50503 SET NAMES utf8 */;
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+--
+-- Table structure for table `bo_phan`
+--
+
+DROP TABLE IF EXISTS `bo_phan`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `bo_phan` (
+  `MaBoPhan` char(5) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL,
+  `TenBoPhan` varchar(20) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL,
+  PRIMARY KEY (`MaBoPhan`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `bo_phan`
+--
+
+LOCK TABLES `bo_phan` WRITE;
+/*!40000 ALTER TABLE `bo_phan` DISABLE KEYS */;
+INSERT INTO `bo_phan` VALUES ('BP001','Phục Vụ'),('BP002','Thu Ngân'),('BP003','Bếp'),('BP004','Quản lí kho');
+/*!40000 ALTER TABLE `bo_phan` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `chuc_vu`
+--
+
+DROP TABLE IF EXISTS `chuc_vu`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `chuc_vu` (
+  `MaChucVu` char(5) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL,
+  `TenChucVu` varchar(20) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL,
+  PRIMARY KEY (`MaChucVu`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `chuc_vu`
+--
+
+LOCK TABLES `chuc_vu` WRITE;
+/*!40000 ALTER TABLE `chuc_vu` DISABLE KEYS */;
+INSERT INTO `chuc_vu` VALUES ('CV001','Trưởng Ban'),('CV002','Nhân Viên'),('CV003','Thực Tập');
+/*!40000 ALTER TABLE `chuc_vu` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `congthuc_nl`
+--
+
+DROP TABLE IF EXISTS `congthuc_nl`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `congthuc_nl` (
+  `SoLuong` tinyint unsigned DEFAULT NULL,
+  `MaMonAn` char(7) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL,
+  `MaNguyenLieu` char(10) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL,
+  PRIMARY KEY (`MaMonAn`,`MaNguyenLieu`),
+  KEY `MaNguyenLieu` (`MaNguyenLieu`),
+  CONSTRAINT `congthuc_nl_ibfk_1` FOREIGN KEY (`MaMonAn`) REFERENCES `mon_an` (`MaMonAn`),
+  CONSTRAINT `congthuc_nl_ibfk_2` FOREIGN KEY (`MaNguyenLieu`) REFERENCES `nguyen_lieu` (`MaNguyenLieu`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `congthuc_nl`
+--
+
+LOCK TABLES `congthuc_nl` WRITE;
+/*!40000 ALTER TABLE `congthuc_nl` DISABLE KEYS */;
+INSERT INTO `congthuc_nl` VALUES (10,'MA00001','NL00000002'),(10,'MA00001','NL00000005'),(10,'MA00001','NL00000006'),(10,'MA00002','NL00000002'),(10,'MA00002','NL00000003'),(10,'MA00002','NL00000007'),(10,'MA00003','NL00000008'),(10,'MA00004','NL00000002');
+/*!40000 ALTER TABLE `congthuc_nl` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `ds_theo_doi`
+--
+
+DROP TABLE IF EXISTS `ds_theo_doi`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `ds_theo_doi` (
+  `Tinhtrang` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT 'Đủ',
+  `SoLuong` tinyint unsigned DEFAULT NULL,
+  `MaSo` char(5) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL,
+  `MaNguyenLieu` char(10) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL,
+  `MaNhanVien` char(7) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL,
+  PRIMARY KEY (`MaSo`,`MaNguyenLieu`),
+  KEY `MaNguyenLieu` (`MaNguyenLieu`),
+  KEY `MaNhanVien` (`MaNhanVien`),
+  CONSTRAINT `ds_theo_doi_ibfk_1` FOREIGN KEY (`MaSo`) REFERENCES `so_theo_doi` (`MaSo`),
+  CONSTRAINT `ds_theo_doi_ibfk_2` FOREIGN KEY (`MaNguyenLieu`) REFERENCES `nguyen_lieu` (`MaNguyenLieu`),
+  CONSTRAINT `ds_theo_doi_ibfk_3` FOREIGN KEY (`MaNhanVien`) REFERENCES `nhan_vien` (`MaNhanVien`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `ds_theo_doi`
+--
+
+LOCK TABLES `ds_theo_doi` WRITE;
+/*!40000 ALTER TABLE `ds_theo_doi` DISABLE KEYS */;
+INSERT INTO `ds_theo_doi` VALUES ('Đủ',1,'STD01','NL00000002','NV00008'),('Đủ',100,'STD01','NL00000005','NV00008'),('Đủ',20,'STD02','NL00000003','NV00008'),('Đủ',2,'STD02','NL00000004','NV00008');
+/*!40000 ALTER TABLE `ds_theo_doi` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `hoa_don_cung_cap`
+--
+
+DROP TABLE IF EXISTS `hoa_don_cung_cap`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `hoa_don_cung_cap` (
+  `MaHoaDon` char(10) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL,
+  `Ngay` date DEFAULT (now()),
+  `ThanhTien` decimal(15,3) unsigned DEFAULT NULL,
+  `MaNhaCungCap` char(5) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL,
+  `MaNhanVien` char(7) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL,
+  `MaNguyenLieu` char(10) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL,
+  PRIMARY KEY (`MaHoaDon`),
+  KEY `MaNhaCungCap` (`MaNhaCungCap`),
+  KEY `MaNhanVien` (`MaNhanVien`),
+  KEY `MaNguyenLieu` (`MaNguyenLieu`),
+  CONSTRAINT `hoa_don_cung_cap_ibfk_1` FOREIGN KEY (`MaNhaCungCap`) REFERENCES `nha_cung_cap` (`MaNhaCungCap`),
+  CONSTRAINT `hoa_don_cung_cap_ibfk_2` FOREIGN KEY (`MaNhanVien`) REFERENCES `nhan_vien` (`MaNhanVien`),
+  CONSTRAINT `hoa_don_cung_cap_ibfk_3` FOREIGN KEY (`MaNguyenLieu`) REFERENCES `nguyen_lieu` (`MaNguyenLieu`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `hoa_don_cung_cap`
+--
+
+LOCK TABLES `hoa_don_cung_cap` WRITE;
+/*!40000 ALTER TABLE `hoa_don_cung_cap` DISABLE KEYS */;
+INSERT INTO `hoa_don_cung_cap` VALUES ('HD00000001','2023-04-12',10000000.000,'NCC02','NV00004','NL00000001'),('HD00000002','2023-04-12',10000000.000,'NCC02','NV00004','NL00000002'),('HD00000003','2023-04-12',10000000.000,'NCC02','NV00004','NL00000003'),('HD00000004','2023-04-12',10000000.000,'NCC03','NV00004','NL00000004'),('HD00000005','2023-04-12',10000000.000,'NCC01','NV00004','NL00000005'),('HD00000006','2023-04-12',10000000.000,'NCC01','NV00004','NL00000006'),('HD00000007','2023-04-12',10000000.000,'NCC03','NV00004','NL00000007'),('HD00000008','2023-04-12',10000000.000,'NCC01','NV00004','NL00000008');
+/*!40000 ALTER TABLE `hoa_don_cung_cap` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `hoa_don_thanh_toan`
+--
+
+DROP TABLE IF EXISTS `hoa_don_thanh_toan`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `hoa_don_thanh_toan` (
+  `MaHoaDon` char(7) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL,
+  `TenHoaDon` varchar(45) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL,
+  `ThanhTien` decimal(15,3) unsigned DEFAULT NULL,
+  `Ngay` date DEFAULT (now()),
+  `MaNhanVien` char(7) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL,
+  `MaPhieuOrder` char(12) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL,
+  PRIMARY KEY (`MaHoaDon`),
+  KEY `MaNhanVien` (`MaNhanVien`),
+  KEY `MaPhieuOrder` (`MaPhieuOrder`),
+  CONSTRAINT `hoa_don_thanh_toan_ibfk_1` FOREIGN KEY (`MaNhanVien`) REFERENCES `nhan_vien` (`MaNhanVien`),
+  CONSTRAINT `hoa_don_thanh_toan_ibfk_2` FOREIGN KEY (`MaPhieuOrder`) REFERENCES `phieu_order` (`MaPhieuOrder`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `hoa_don_thanh_toan`
+--
+
+LOCK TABLES `hoa_don_thanh_toan` WRITE;
+/*!40000 ALTER TABLE `hoa_don_thanh_toan` DISABLE KEYS */;
+INSERT INTO `hoa_don_thanh_toan` VALUES ('HD00001','Hóa Đơn Thanh Toán',10000000.000,'2023-03-01','NV00003','PO0000000001'),('HD00002','Hóa Đơn Thanh Toán',10000000.000,'2023-03-03','NV00003','PO0000000002'),('HD00003','Hóa Đơn Thanh Toán',10000000.000,'2023-03-05','NV00004','PO0000000003'),('HD00004','Hóa Đơn Thanh Toán',10000000.000,'2023-03-20','NV00003','PO0000000004'),('HD00005','Hóa Đơn Thanh Toán',10000000.000,'2023-04-01','NV00004','PO0000000005'),('HD00006','Hóa Đơn Thanh Toán',10000000.000,'2023-04-01','NV00003','PO0000000006'),('HD00007','Hóa Đơn Thanh Toán',10000000.000,'2023-04-02','NV00004','PO0000000007'),('HD00008','Hóa Đơn Thanh Toán',10000000.000,'2023-04-05','NV00003','PO0000000008'),('HD00009','Hóa Đơn Thanh Toán',10000000.000,'2023-04-06','NV00003','PO0000000009');
+/*!40000 ALTER TABLE `hoa_don_thanh_toan` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `khach_hang`
+--
+
+DROP TABLE IF EXISTS `khach_hang`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `khach_hang` (
+  `MaKhachHang` char(10) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL,
+  `TenKhachHang` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL,
+  `CCCD_CMND` char(12) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT NULL,
+  `SDT` char(10) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT NULL,
+  `DiaChi` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT 'Việt Nam',
+  PRIMARY KEY (`MaKhachHang`),
+  UNIQUE KEY `CCCD_CMND` (`CCCD_CMND`),
+  UNIQUE KEY `SDT` (`SDT`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `khach_hang`
+--
+
+LOCK TABLES `khach_hang` WRITE;
+/*!40000 ALTER TABLE `khach_hang` DISABLE KEYS */;
+INSERT INTO `khach_hang` VALUES ('KH00000001','Nguyễn Văn Tín','040204002535','0905085920','P.Tân An, Tp. Buôn Mê Thuột'),('KH00000002','Nguyễn Văn Tài','040204002538','0905085520','P.Tân An, Tp. Buôn Mê Thuột'),('KH00000003','Lê Thị Tín','040204102535','0905085220','P.Tân An, Tp. Buôn Mê Thuột'),('KH00000004','Nam Trung','042204002535','0905085420','P.Tân An, Tp. Buôn Mê Thuột'),('KH00000005','Thùy Nữ','041104002535','0905385920','P.Tân An, Tp. Buôn Mê Thuột');
+/*!40000 ALTER TABLE `khach_hang` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `khach_hang__kieu`
+--
+
+DROP TABLE IF EXISTS `khach_hang__kieu`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `khach_hang__kieu` (
+  `MaKieu` char(2) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL,
+  `TenKieu` char(5) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL DEFAULT 'order',
+  `UuDai` varchar(12) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL,
+  PRIMARY KEY (`MaKieu`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `khach_hang__kieu`
+--
+
+LOCK TABLES `khach_hang__kieu` WRITE;
+/*!40000 ALTER TABLE `khach_hang__kieu` DISABLE KEYS */;
+INSERT INTO `khach_hang__kieu` VALUES ('K1','Order',''),('K2','Reser','Giảm 5%'),('K3','Party','Giảm 10%');
+/*!40000 ALTER TABLE `khach_hang__kieu` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `kho`
+--
+
+DROP TABLE IF EXISTS `kho`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `kho` (
+  `MaKho` char(4) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL,
+  `TenKho` varchar(10) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL,
+  `LoaiKho` varchar(18) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL,
+  PRIMARY KEY (`MaKho`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `kho`
+--
+
+LOCK TABLES `kho` WRITE;
+/*!40000 ALTER TABLE `kho` DISABLE KEYS */;
+INSERT INTO `kho` VALUES ('K001','Kho 1','Kho Khô'),('K002','Kho 2','Kho Lạnh'),('K003','Kho 3','Kho Đông');
+/*!40000 ALTER TABLE `kho` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `kho_nl`
+--
+
+DROP TABLE IF EXISTS `kho_nl`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `kho_nl` (
+  `SoLuong` tinyint unsigned DEFAULT NULL,
+  `MaKho` char(4) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL,
+  `MaNguyenLieu` char(10) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL,
+  PRIMARY KEY (`MaKho`,`MaNguyenLieu`),
+  KEY `MaNguyenLieu` (`MaNguyenLieu`),
+  CONSTRAINT `kho_nl_ibfk_1` FOREIGN KEY (`MaKho`) REFERENCES `kho` (`MaKho`),
+  CONSTRAINT `kho_nl_ibfk_2` FOREIGN KEY (`MaNguyenLieu`) REFERENCES `nguyen_lieu` (`MaNguyenLieu`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `kho_nl`
+--
+
+LOCK TABLES `kho_nl` WRITE;
+/*!40000 ALTER TABLE `kho_nl` DISABLE KEYS */;
+INSERT INTO `kho_nl` VALUES (10,'K001','NL00000005'),(10,'K001','NL00000006'),(5,'K001','NL00000007'),(20,'K002','NL00000004'),(1,'K003','NL00000002'),(2,'K003','NL00000003'),(38,'K003','NL00000005'),(13,'K003','NL00000008');
+/*!40000 ALTER TABLE `kho_nl` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `mon_an`
+--
+
+DROP TABLE IF EXISTS `mon_an`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `mon_an` (
+  `MaMonAn` char(7) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL,
+  `NgayLenMon` date DEFAULT (now()),
+  `TenMonAn` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL,
+  `LoaiMonAn` varchar(14) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL,
+  `DonGia` decimal(15,3) unsigned DEFAULT NULL,
+  PRIMARY KEY (`MaMonAn`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `mon_an`
+--
+
+LOCK TABLES `mon_an` WRITE;
+/*!40000 ALTER TABLE `mon_an` DISABLE KEYS */;
+INSERT INTO `mon_an` VALUES ('MA00001','2023-01-01','Ca Ngu','Hải Sản',40000.000),('MA00002','2023-01-01','Lẩu Cá Ngừ','Hải Sản',4275000.000),('MA00003','2023-01-01','Lẩu Bò','Thịt',7600000.000),('MA00004','2023-01-01','Rau Xào','Rau',500000.000),('MA00005','2023-01-01','Bò Xào','Thịt',100000.000),('MA00006','2023-01-01','Bò Chiên','Thịt',500000.000),('MA00007','2023-01-01','Giò Rau','Rau',60000.000),('MA00008','2023-01-01','Cá Ngừ Hấp','Hải Sản',600000.000),('MA00009','2023-01-01','Lẩu Cá Trê','Hải Sản',4750000.000);
+/*!40000 ALTER TABLE `mon_an` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `mon_an_order`
+--
+
+DROP TABLE IF EXISTS `mon_an_order`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `mon_an_order` (
+  `Soluong` tinyint unsigned DEFAULT NULL,
+  `MaMonAn` char(7) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL,
+  `MaPhieuOrder` char(12) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL,
+  PRIMARY KEY (`MaPhieuOrder`,`MaMonAn`),
+  KEY `MaMonAn` (`MaMonAn`),
+  CONSTRAINT `mon_an_order_ibfk_1` FOREIGN KEY (`MaMonAn`) REFERENCES `mon_an` (`MaMonAn`),
+  CONSTRAINT `mon_an_order_ibfk_2` FOREIGN KEY (`MaPhieuOrder`) REFERENCES `phieu_order` (`MaPhieuOrder`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `mon_an_order`
+--
+
+LOCK TABLES `mon_an_order` WRITE;
+/*!40000 ALTER TABLE `mon_an_order` DISABLE KEYS */;
+INSERT INTO `mon_an_order` VALUES (2,'MA00001','PO0000000001'),(2,'MA00002','PO0000000001'),(2,'MA00002','PO0000000002'),(2,'MA00003','PO0000000002'),(2,'MA00002','PO0000000003'),(2,'MA00003','PO0000000003'),(2,'MA00004','PO0000000004'),(2,'MA00005','PO0000000005'),(2,'MA00001','PO0000000006'),(2,'MA00002','PO0000000006'),(2,'MA00006','PO0000000006'),(2,'MA00007','PO0000000006'),(2,'MA00002','PO0000000007'),(2,'MA00009','PO0000000007'),(2,'MA00001','PO0000000008'),(2,'MA00002','PO0000000008'),(2,'MA00006','PO0000000008'),(2,'MA00009','PO0000000008'),(2,'MA00001','PO0000000009'),(2,'MA00002','PO0000000009'),(2,'MA00003','PO0000000009');
+/*!40000 ALTER TABLE `mon_an_order` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `ncc_nguyen_lieu`
+--
+
+DROP TABLE IF EXISTS `ncc_nguyen_lieu`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `ncc_nguyen_lieu` (
+  `SoLuong` tinyint unsigned DEFAULT NULL,
+  `MaNhaCungCap` char(5) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL,
+  `MaNguyenLieu` char(10) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL,
+  PRIMARY KEY (`MaNhaCungCap`,`MaNguyenLieu`),
+  KEY `MaNguyenLieu` (`MaNguyenLieu`),
+  CONSTRAINT `ncc_nguyen_lieu_ibfk_1` FOREIGN KEY (`MaNhaCungCap`) REFERENCES `nha_cung_cap` (`MaNhaCungCap`),
+  CONSTRAINT `ncc_nguyen_lieu_ibfk_2` FOREIGN KEY (`MaNguyenLieu`) REFERENCES `nguyen_lieu` (`MaNguyenLieu`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `ncc_nguyen_lieu`
+--
+
+LOCK TABLES `ncc_nguyen_lieu` WRITE;
+/*!40000 ALTER TABLE `ncc_nguyen_lieu` DISABLE KEYS */;
+INSERT INTO `ncc_nguyen_lieu` VALUES (3,'NCC01','NL00000005'),(5,'NCC01','NL00000006'),(2,'NCC01','NL00000008'),(3,'NCC02','NL00000002'),(39,'NCC02','NL00000003'),(5,'NCC03','NL00000004'),(3,'NCC03','NL00000007');
+/*!40000 ALTER TABLE `ncc_nguyen_lieu` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `nguyen_lieu`
+--
+
+DROP TABLE IF EXISTS `nguyen_lieu`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `nguyen_lieu` (
+  `MaNguyenLieu` char(10) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL,
+  `TenNguyenLieu` varchar(20) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL,
+  `NgayNhap` date DEFAULT (now()),
+  `HSD` date DEFAULT NULL,
+  `DonGia` decimal(9,3) unsigned DEFAULT NULL,
+  `Tinhtrang` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL,
+  `MaKho` char(4) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL,
+  `MaNhaCungCap` char(5) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL,
+  PRIMARY KEY (`MaNguyenLieu`),
+  KEY `MaKho` (`MaKho`),
+  KEY `MaNhaCungCap` (`MaNhaCungCap`),
+  CONSTRAINT `nguyen_lieu_ibfk_1` FOREIGN KEY (`MaKho`) REFERENCES `kho` (`MaKho`),
+  CONSTRAINT `nguyen_lieu_ibfk_2` FOREIGN KEY (`MaNhaCungCap`) REFERENCES `nha_cung_cap` (`MaNhaCungCap`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `nguyen_lieu`
+--
+
+LOCK TABLES `nguyen_lieu` WRITE;
+/*!40000 ALTER TABLE `nguyen_lieu` DISABLE KEYS */;
+INSERT INTO `nguyen_lieu` VALUES ('NL00000002','Cá Ngừ','2023-04-01','2023-05-01',50000.000,'Tươi','K003','NCC02'),('NL00000003','Cá Trê','2023-04-01','2023-04-25',9000.000,'Ngon','K003','NCC02'),('NL00000004','Rau Cần','2023-04-01','2023-04-05',10000.000,'Hết Hạn Sử Dụng','K002','NCC03'),('NL00000005','Thịt Heo','2023-04-01','2023-04-25',55000.000,'Mới Nhập','K003','NCC01'),('NL00000006','Bột Nêm','2023-03-01','2023-06-01',50500.000,'Đủ','K001','NCC01'),('NL00000007','Rau Thơm','2023-04-01','2023-04-15',1000.000,'Đủ','K001','NCC03'),('NL00000008','Giò','2023-03-01','2023-04-15',10000.000,'Đủ','K003','NCC01');
+/*!40000 ALTER TABLE `nguyen_lieu` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `nha_cung_cap`
+--
+
+DROP TABLE IF EXISTS `nha_cung_cap`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `nha_cung_cap` (
+  `MaNhaCungCap` char(5) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL,
+  `TenNhaCungCap` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL,
+  `UuDai` varchar(20) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT 'Không',
+  PRIMARY KEY (`MaNhaCungCap`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `nha_cung_cap`
+--
+
+LOCK TABLES `nha_cung_cap` WRITE;
+/*!40000 ALTER TABLE `nha_cung_cap` DISABLE KEYS */;
+INSERT INTO `nha_cung_cap` VALUES ('NCC01','Công Ty TNHH Lê Thành','Không'),('NCC02','Công Ty Hải Sản Trường Thành','Không'),('NCC03','Công Ty Rau Sạch Thành Công','Không');
+/*!40000 ALTER TABLE `nha_cung_cap` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `nhan_vien`
+--
+
+DROP TABLE IF EXISTS `nhan_vien`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `nhan_vien` (
+  `MaNhanVien` char(7) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL,
+  `TenNhanVien` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL,
+  `CCCD_CMND` char(12) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT NULL,
+  `SDT` char(10) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT NULL,
+  `DiaChi` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT 'Việt Nam',
+  `MaBoPhan` char(5) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL,
+  `MaChucVu` char(5) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL,
+  PRIMARY KEY (`MaNhanVien`),
+  UNIQUE KEY `CCCD_CMND` (`CCCD_CMND`),
+  UNIQUE KEY `SDT` (`SDT`),
+  KEY `MaBoPhan` (`MaBoPhan`),
+  KEY `MaChucVu` (`MaChucVu`),
+  CONSTRAINT `nhan_vien_ibfk_1` FOREIGN KEY (`MaBoPhan`) REFERENCES `bo_phan` (`MaBoPhan`),
+  CONSTRAINT `nhan_vien_ibfk_2` FOREIGN KEY (`MaChucVu`) REFERENCES `chuc_vu` (`MaChucVu`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `nhan_vien`
+--
+
+LOCK TABLES `nhan_vien` WRITE;
+/*!40000 ALTER TABLE `nhan_vien` DISABLE KEYS */;
+INSERT INTO `nhan_vien` VALUES ('NV00001','Nguyễn Tùng','040402032325','0907069548','Nguyễn Xuân Nguyên, Tân An, Buôn Mê Thuột','BP001','CV002'),('NV00002','Nguyễn Lê','040405802325','0907069748','Nguyễn Xuân Nguyên, Tân An, Buôn Mê Thuột','BP001','CV003'),('NV00003','Thanh Tùng','040403002325','0907065548','Nguyễn Xuân Nguyên, Tân An, Buôn Mê Thuột','BP002','CV001'),('NV00004','Lê Văn Tín','040402002325','0907063548','Nguyễn Xuân Nguyên, Tân An, Buôn Mê Thuột','BP002','CV002'),('NV00005','Nguyễn Nhạc','040407002325','0907269548','Nguyễn Xuân Nguyên, Tân An, Buôn Mê Thuột','BP003','CV003'),('NV00006','Hoàng Tùng Chiến','040404002325','0407069548','Nguyễn Xuân Nguyên, Tân An, Buôn Mê Thuột','BP003','CV002'),('NV00007','Ngô Thị Ngô','040402022325','0907086548','Nguyễn Xuân Nguyên, Tân An, Buôn Mê Thuột','BP003','CV001'),('NV00008','Trần Lê','040402012325','0907069532','Nguyễn Xuân Nguyên, Tân An, Buôn Mê Thuột','BP004','CV001');
+/*!40000 ALTER TABLE `nhan_vien` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `phieu_order`
+--
+
+DROP TABLE IF EXISTS `phieu_order`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `phieu_order` (
+  `MaPhieuOrder` char(12) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL,
+  `Ngay` date DEFAULT (now()),
+  `MaKieu` char(2) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL,
+  `YeuCau` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT 'Không',
+  `MaKhachHang` char(10) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL,
+  `MaNhanVien` char(7) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL,
+  PRIMARY KEY (`MaPhieuOrder`),
+  KEY `MaKieu` (`MaKieu`),
+  KEY `MaKhachHang` (`MaKhachHang`),
+  KEY `MaNhanVien` (`MaNhanVien`),
+  CONSTRAINT `phieu_order_ibfk_1` FOREIGN KEY (`MaKieu`) REFERENCES `khach_hang__kieu` (`MaKieu`),
+  CONSTRAINT `phieu_order_ibfk_2` FOREIGN KEY (`MaKhachHang`) REFERENCES `khach_hang` (`MaKhachHang`),
+  CONSTRAINT `phieu_order_ibfk_3` FOREIGN KEY (`MaNhanVien`) REFERENCES `nhan_vien` (`MaNhanVien`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `phieu_order`
+--
+
+LOCK TABLES `phieu_order` WRITE;
+/*!40000 ALTER TABLE `phieu_order` DISABLE KEYS */;
+INSERT INTO `phieu_order` VALUES ('PO0000000001','2023-03-01','K1','Thêm Cơm','KH00000001','NV00001'),('PO0000000002','2023-03-03','K1','Thêm Cơm','KH00000001','NV00001'),('PO0000000003','2023-03-05','K2','Thêm Nước Chấm','KH00000001','NV00002'),('PO0000000004','2023-03-20','K2','Thêm Canh','KH00000002','NV00001'),('PO0000000005','2023-04-01','K3','','KH00000003','NV00002'),('PO0000000006','2023-04-01','K2','Thêm Nước Ngọt','KH00000004','NV00001'),('PO0000000007','2023-04-02','K1','Thêm Canh','KH00000004','NV00002'),('PO0000000008','2023-04-05','K2','Thêm Cơm','KH00000005','NV00002'),('PO0000000009','2023-04-06','K1','Thêm Cơm','KH00000004','NV00001');
+/*!40000 ALTER TABLE `phieu_order` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `so_theo_doi`
+--
+
+DROP TABLE IF EXISTS `so_theo_doi`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `so_theo_doi` (
+  `MaSo` char(5) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL,
+  `NgayTheoDoi` date DEFAULT (now()),
+  `MaNhanVien` char(7) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL,
+  PRIMARY KEY (`MaSo`),
+  KEY `MaNhanVien` (`MaNhanVien`),
+  CONSTRAINT `so_theo_doi_ibfk_1` FOREIGN KEY (`MaNhanVien`) REFERENCES `nhan_vien` (`MaNhanVien`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `so_theo_doi`
+--
+
+LOCK TABLES `so_theo_doi` WRITE;
+/*!40000 ALTER TABLE `so_theo_doi` DISABLE KEYS */;
+INSERT INTO `so_theo_doi` VALUES ('STD01','2023-04-01','NV00008'),('STD02','2023-04-15','NV00008');
+/*!40000 ALTER TABLE `so_theo_doi` ENABLE KEYS */;
+UNLOCK TABLES;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+-- Dump completed on 2023-04-12 15:53:55
