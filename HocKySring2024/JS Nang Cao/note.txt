@@ -1,0 +1,4 @@
+lưu ý về destructuring về array và oj
+toasn tử spear, rest trong ar và obj
+set js dung để tạo các oj có các thành phần không trùng lặp -> dùng để kiểm tra và loại bỏ giá trị trùng lặp của 1 mảng
+map js giống như oj nhưng linh hoạt hơn trong việc tạo key 
