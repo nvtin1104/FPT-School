@@ -1,0 +1,18 @@
+/* CSS cho phân trang */
+:root {
+    --text-color-1: #111 !important;
+    --bg-color-1: #f6f6f6 !important;
+    --text-color-2: #666 !important;
+    --bg-color-2: #ca1515 !important;
+    --text-color-3: #fff !important;
+}
+.cart-main{
+    margin: auto!important;
+    padding: 64px 0;
+}
+.shopping-cart__nocontent{
+    padding: 64px 0;
+}
+.no-content{
+    margin:  0 12px!important;
+}
